@@ -5,19 +5,21 @@ import java.security.SecureRandom;
  */
 public class RandomBytes {
 
-	private static boolean isValid(byte[] var1) {
-		if(var1.length != 24) {
+	/*
+	Valid hash : max 8 identical bytes
+	 */
+	private static boolean isValid(byte[] array) {
+		if(array.length != 24) {
 			return false;
 		} else {
-			boolean var2 = true;
-			for(int var3 = 0; var3 < var1.length - 7; ++var3) {
-				byte var4 = var1[var3];
-				int var5 = 0;
+			for(int i = 0; i < array.length - 7; ++i) {
+				byte b = array[i];
+				int identicalBytes = 0;
 
-				for(int var6 = 0; var6 < var1.length; ++var6) {
-					if(var4 == var1[var6]) {
-						++var5;
-						if(var5 >= 8) {
+				for(int j = 0; j < array.length; ++j) {
+					if(b == array[j]) {
+						++identicalBytes;
+						if(identicalBytes >= 8) {
 							return false;
 						}
 					}
